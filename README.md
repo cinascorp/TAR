@@ -11,24 +11,25 @@ ambient electromagnetic fields.
 
 ## System Architecture
 
-The TAR framework consists of three tightly coupled analytical domains:.
-(1) Geodesic Layer: Accurate spatial reconstruction using the spherical
+The TAR framework consists of three tightly coupled analytical domains:
+### (1) Geodesic Layer: Accurate spatial reconstruction using the spherical
 Earth approximation .
-(2) Temporal Layer: Continuous trajectory
+### (2) Temporal Layer: Continuous trajectory
 estimation via interpolation and filtering. 
-(3) Signal Layer: Detection
+### (3) Signal Layer: Detection
 of anomalies in packet timing interpreted as phase disturbances.
 
 ## Geodesic Modeling
 
 The Aircraft distance is computed using the Haversine formulation:
-$$ \begin{equation}
-a = \sin^2\left(\frac{\Delta\phi}{2}\right) + \cos\phi_1 \cos\phi_2 \sin^2\left(\frac{\Delta\lambda}{2}\right)
-\end{equation}$$ $$\begin{equation}
+$$ 
+a = \sin^2\left(\frac{\Delta\phi}{2}\right) + \cos\phi_1 \cos\phi_2 \sin^2\left(\frac{\Delta\lambda}$$
+{2}\right)
 c=2\cdot atan~2(\sqrt{a},\sqrt{1-a})
-\end{equation}$$ $$\begin{equation}
 d = R \cdot c
-\end{equation}$$This provides a stable baseline for the spatial
+$$
+
+This provides a stable baseline for the spatial
 correlation between telemetry and observation.
 
 ## Temporal Interpolation and Filtering
