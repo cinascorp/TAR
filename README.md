@@ -12,20 +12,27 @@ ambient electromagnetic fields.
 ## System Architecture
 
 The TAR framework consists of three tightly coupled analytical domains:
-### (1) Geodesic Layer: Accurate spatial reconstruction using the spherical
+### (1) Geodesic Layer: 
+Accurate spatial reconstruction using the spherical
 Earth approximation .
-### (2) Temporal Layer: Continuous trajectory
-estimation via interpolation and filtering. 
-### (3) Signal Layer: Detection
-of anomalies in packet timing interpreted as phase disturbances.
+### (2) Temporal Layer: 
+Continuous trajectory estimation via interpolation and filtering. 
+### (3) Signal Layer: 
+Detection of anomalies in packet timing interpreted as phase disturbances.
 
 ## Geodesic Modeling
 
 The Aircraft distance is computed using the Haversine formulation:
-$$ 
-a = \sin^2\left(\frac{\Delta\phi}{2}\right) + \cos\phi_1 \cos\phi_2 \sin^2\left(\frac{\Delta\lambda}$$
-{2}\right)
+
+$$
+a = \sin^2\left(\frac{\Delta\phi}{2}\right) + \cos\phi_1 \cdot \cos\phi_2 \cdot \sin^2\left(\frac{\Delta\lambda}{2}\right)
+$$
+
+$$
 c=2\cdot atan~2(\sqrt{a},\sqrt{1-a})
+$$
+
+$$
 d = R \cdot c
 $$
 
@@ -35,24 +42,48 @@ correlation between telemetry and observation.
 ## Temporal Interpolation and Filtering
 
 To mitigate packet discontinuities, TAR applies Linear Interpolation:
-$$\begin{equation}
+
+$$
 P_{t}=P_{start}+(P_{end}-P_{start})\cdot\frac{t-t_{last}}{\Delta t}
-\end{equation}$$ Angular smoothing is handled via modular correction:
-$$\begin{equation}
+$$
+
+Angular smoothing is handled via modular correction:
+$$
 \Delta\theta=((\theta_{target}-\theta_{current}+540) \pmod{360}) - 180
-\end{equation}$$ Additionally, a discrete Kalman filter is introduced to
+$$
+
+Additionally, a discrete Kalman filter is introduced to
 stabilize the velocity and heading estimation under noisy input
 conditions.
 
 # Network-Layer Signal Analysis
 
 Unlike conventional systems, TAR evaluates the packet timing as a signal
-source.The Signal-to-noise ratio is defined as: $$\begin{equation}
+source.The Signal-to-noise ratio is defined as:
+
+$$
 SNR_{blob} = \frac{\Sigma B}{\sigma_{jitter}^2}
-\end{equation}$$ where $\sigma_{jitter}^{2}$ represents the latency
-variance. A latency delta function is defined as: $$\begin{equation}
+$$ 
+
+where 
+
+$$
+\sigma_{jitter}^{2}
+$$
+
+represents the latency
+variance. A latency delta function is defined as:
+
+$$
 \Delta\tau=T_{rx}-T_{tx}-\frac{d}{c}
-\end{equation}$$ Under stable propagation, $\Delta\tau\rightarrow0$.
+$$ 
+
+Under stable propagation, 
+
+$$
+\Delta\tau\rightarrow0
+$$
+
 Deviations are interpreted as anomalies.
 
 # Electromagnetic Shadow Hypothesis
@@ -60,9 +91,13 @@ Deviations are interpreted as anomalies.
 Low-observable aerial objects reduce radar cross-section but cannot
 fully eliminate interaction with ambient RF fields. TAR hypothesizes
 that such interactions induce measurable disturbances in network-layer
-timing. An anomaly condition is defined as: $$\begin{equation}
+timing. An anomaly condition is defined as: 
+
+$$
 \lim_{\Delta t\rightarrow0}\Delta\tau\approx0\wedge|B|>\theta
-\end{equation}$$ where B is the threshold of the blob.
+$$
+
+where B is the threshold of the blob.
 
 # Observational Results
 
@@ -84,4 +119,6 @@ visualization to signal interpretation. By combining geodesy, temporal
 prediction, and network-phase analysis, the system introduces a novel
 perspective on passive aerial detection. Future work includes validation
 against controlled RF environments and integration with multi-node
-correlation. github.com/cinascorp/TAR
+correlation.
+
+## github.com/cinascorp/TAR
