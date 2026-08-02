@@ -133,7 +133,7 @@ correlation.
 
 پلتفرم های سنتی تجسم ترافیک هوایی عمدتاً بر خطوط لوله تله متری دارای تأخیر و رندرینگ سمت سرور (Server-side) استوار هستند. این سیستم ها صرفاً به موقعیت های رمزگشایی شده ADS-B متکی هستند.
 
-تارا (TAR) یک جایگزین توزیع شده را با الهام از مفهوم **مکان یابی منسجم غیرفعال (PCL)** ارائه می دهد، جایی که مرورگر کلاینت به عنوان یک گره حسگر عمل می کند. برخلاف رویکردهای مرسوم، تارا ویژگی های انتقال شبکه را به عنوان یک سیگنال قابل اندازه گیری در نظر می گیرد. فرضیه اصلی این است که تغییرات ظریف در زمان بندی بسته های داده (Packet-level micro-latency variations یا Jitter)، حاوی اطلاعات اختلالات محیطی ناشی از تعامل اجسام هوایی با میدان های الکترومغناطیسی محیط است. این تغییرات به عنوان یک «کانال سیگنال ثانویه» تحلیل می شوند که می توانند منجر به کشف اهدافی شوند که از دید رادارهای سنتی پنهان اند.
+تار (TAR) یک جایگزین توزیع شده را با الهام از مفهوم **مکان یابی منسجم غیرفعال (PCL)** ارائه می دهد، جایی که مرورگر کلاینت به عنوان یک گره حسگر عمل می کند. برخلاف رویکردهای مرسوم، تارا ویژگی های انتقال شبکه را به عنوان یک سیگنال قابل اندازه گیری در نظر می گیرد. فرضیه اصلی این است که تغییرات ظریف در زمان بندی بسته های داده (Packet-level micro-latency variations یا Jitter)، حاوی اطلاعات اختلالات محیطی ناشی از تعامل اجسام هوایی با میدان های الکترومغناطیسی محیط است. این تغییرات به عنوان یک «کانال سیگنال ثانویه» تحلیل می شوند که می توانند منجر به کشف اهدافی شوند که از دید رادارهای سنتی پنهان اند.
 
 مشاهدات تجربی نشان می دهد که نمایش بصری ارائه شده توسط این معماری، در شرایط خاص، می تواند دارای «پیش تیمی زمانی زیرادراکی» (Sub-perceptual temporal lead) نسبت به مشاهده نوری مستقیم باشد. این معماری کاملاً در سمت کاربر (Client-side) و با استفاده از **WebGL** و **Web Workers** موازی عمل کرده و امکان تجسم مقیاس پذیر ترافیک هوایی متراکم را بدون نیاز به زیرساخت بک اند فراهم می سازد.
 
@@ -198,7 +198,7 @@ $$ SNR_{blob} = \frac{P_{signal}}{P_{noise}} = \frac{\sum |B[i]|^2}{\sigma^2_{ji
 *   $B[i]$: دامنه جریان بایت ها
 *   $\sigma^2_{jitter}$: واریانس تأخیر بسته ها
 
-**پیاده سازی تشخیص سایه (Shadow Detection) با آنتروپی شانون:**
+**پیاده سازی تشخیص سایه (Anomaly Detection) با آنتروپی شانون:**
 
 ```javascript
 class ShadowDetector {
@@ -209,6 +209,7 @@ class ShadowDetector {
   }
 
   // به روزرسانی بافر سیگنال با قرائت های جدید
+//--- Update signal buffer with new readings ---
   updateSignal(newVal) {
     this.signalHistory.shift();
     this.signalHistory.push(newVal);
@@ -218,7 +219,8 @@ class ShadowDetector {
   calculateProbabilities(data) {
     const counts = {};
     data.forEach(x => {
-      const bucket = Math.floor(x * 10); // گسسته سازی
+      const bucket = Math.floor(x * 10);
+ // گسسته سازی (Discretization)
       counts[bucket] = (counts[bucket] || 0) + 1;
     });
     const total = data.length;
@@ -226,6 +228,7 @@ class ShadowDetector {
   }
 
   // محاسبه آنتروپی شانون: H(X) = - sum(p(x) * log2(p(x)))
+//--- Shanon Entropy Calculation ---
   calculateEntropy() {
     const probs = this.calculateProbabilities(this.signalHistory);
     let entropy = 0;
@@ -238,12 +241,18 @@ class ShadowDetector {
   }
 
   // منطق تشخیص هسته/هدف
+//the logic of Core/Target Detection 
   detectObject() {
     const currentEntropy = this.calculateEntropy();
     
     // تحلیل منطقی: آنتروپی پایین به معنای سیگنال منظم (سایه) است
     // در میان نویز تصادفی یا انحراف قابل توجه از خط پایه
-    const baselineEntropy = 3.5; // خط پایه فرضی برای نویز سفید
+// Logical analysis: Low entropy means regular signal (shadow)
+// amidst random noise or significant deviation from baseline
+
+    const baselineEntropy = 3.5;
+// خط پایه فرضی برای نویز سفید
+\\--- Hypothetical baseline for white noise
     const deviation = Math.abs(currentEntropy - baselineEntropy);
     
     if (deviation > this.threshold) {
@@ -311,14 +320,21 @@ $$ THEN \rightarrow \text{Flag as Anomaly (Stealth Target)} $$
 
 ### ۴.۱. منطق شناسایی پهپاد (Gate D)
 ```
-D = (H < H_{low}) AND (V < V_{slow}) AND NOT (\text{Helicopter}) 
-D = (H < 1200) AND (V < 120) AND NOT (\text{Helicopter}) $$
+D = (H < H_{low}) ∧ (V < V_{slow}) ∧¬ ({Helicopter})
+D = (H < 1200) ∧ (V < 120) ∧¬ ({Helicopter}) 
+
+D = (H < H_{low}) AND (V < V_{slow}) AND NOT ({Helicopter})  
+D = (H < 1200) AND (V < 120) AND NOT ({Helicopter}) 
 ```
 ### ۴.۲. منطق شناسایی پروازهای نظامی (Gate M)
 
 ```
-M = (C \text{ starts\_with } \{Military_prefix\}) OR (S == 7700) 
-M = (C \in S_{mil}) OR (S == 7700) $$
+
+M = (C { starts\_with } \{Military_prefix\}) ∨ (S == 7700) 
+M = (C \in S_{mil}) ∨ (S == 7700)
+
+M = (C { starts\_with } \{Military_prefix\}) OR (S == 7700) 
+M = (C \in S_{mil}) OR (S == 7700)
 ```
 ## ۵. جمع بندی
 
