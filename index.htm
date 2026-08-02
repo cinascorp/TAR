@@ -16,14 +16,29 @@ self.addEventListener('fetch', e => {
 </script>
 <style>
 :root{
-  --bg:#000;--panel:teal;--panel2:#0f1d26;
-  --text:gold;--muted:#7fa9c9;
-  --border:#d4af37;--border2:#3a5a70;
-  --mil:#ff2a2a;--passenger:#9b59ff;--commercial:#3aa0ff;
-  --private:#ff7ad9;--drone:#cccccc;--accent:#00f3ff;
-  --c0:#666;--c1:#FFA500;--c2:#FFFF00;--c3:#00FF00;
-  --c4:#0000FF;--c5:#4B0082;--c6:#800080;--c7:#FF00FF;
-  --c8:#FF69B4;--c9:#00FFFF;
+  --bg:#000;
+  --panel:teal;
+  --panel2:#0f1d26;
+  --text:gold;
+  --muted:#7fa9c9;
+  --border:#d4af37;
+  --border2:#3a5a70;
+  --mil:#ff2a2a;
+  --passenger:#9b59ff;
+  --commercial:#3aa0ff;
+  --private:#ff7ad9;
+  --drone:#cccccc;
+  --accent:#00f3ff;
+  --c0:#666;
+  --c1:#FFA500;
+  --c2:#FFFF00;
+  --c3:#00FF00;
+  --c4:#0000FF;
+  --c5:#4B0082;
+  --c6:#800080;
+  --c7:#FF00FF;
+  --c8:#FF69B4;
+  --c9:#00FFFF;
 }
 *{box-sizing:border-box}
 html,body{height:100%;width:100%;margin:0;background:var(--bg);color:var(--text);font-family:'Segoe UI',Tahoma,sans-serif;overflow:hidden}
@@ -140,7 +155,9 @@ table{color:var(--text);font-size:.82rem}
     <div class="mb-3">
       <div class="section-title" data-i18n="flightCategory">Flight Categories</div>
       <div class="cat-chips" id="catChips">
-        <span class="cat-chip active" data-cat="passenger" style="border-color:var(--passenger);color:var(--passenger)"><span class="dot" style="background:var(--passenger)"></span><span data-i18n="passenger">Passenger</span></span>
+        <span class="cat-chip active" data-cat="passenger" style="border-color:var(--passenger);color:var(--passenger)">
+          <span class="dot" style="background:var(--passenger)"></span>
+          <span data-i18n="passenger">Passenger</span></span>
         <span class="cat-chip active" data-cat="commercial" style="border-color:var(--commercial);color:var(--commercial)"><span class="dot" style="background:var(--commercial)"></span><span data-i18n="commercial">Commercial</span></span>
         <span class="cat-chip active" data-cat="private" style="border-color:var(--private);color:var(--private)"><span class="dot" style="background:var(--private)"></span><span data-i18n="private">Private</span></span>
         <span class="cat-chip active" data-cat="helicopter" style="border-color:#fff;color:#fff"><span class="dot" style="background:#fff"></span><span data-i18n="helicopter">Helicopter</span></span>
@@ -211,7 +228,11 @@ table{color:var(--text);font-size:.82rem}
       </div>
       <div class="table-responsive mt-1" style="max-height:240px;overflow:auto">
         <table class="table table-sm" id="dBCT">
-          <thead><tr><th data-i18n="country">Country</th><th data-i18n="tailNumber">Tail</th><th>Lat</th><th>Lon</th><th>Alt</th><th data-i18n="speed">Spd</th></tr></thead>
+          <thead><tr><th data-i18n="country">Country</th>
+          <th data-i18n="tailNumber">Tail</th>
+          <th>Lat</th><th>Lon</th>
+          <th>Alt</th><th data-i18n="speed">Spd</th>
+          </tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -221,11 +242,22 @@ table{color:var(--text);font-size:.82rem}
     <div class="mb-3">
       <div class="section-title" data-i18n="colorLegend">Color &amp; Symbol Legend</div>
       <table class="table table-sm">
-        <thead><tr><th data-i18n="type">Type</th><th data-i18n="color">Color</th><th data-i18n="symbol">Symbol</th></tr></thead>
+        <thead><tr><th data-i18n="type">Type</th><th data-i18n="color">Color</th>
+        <th data-i18n="symbol">Symbol</th></tr></thead>
         <tbody>
-          <tr><td data-i18n="military">Military</td><td><span style="display:inline-block;width:20px;height:20px;background:var(--mil);border-radius:3px"></span></td><td><span class="icon-swatch" id="legend-fighter-menu" style="width:24px;height:24px;display:inline-block"></span></td></tr>
-          <tr><td data-i18n="helicopter">Helicopter</td><td><span style="display:inline-block;width:20px;height:20px;background:#fff;border-radius:3px"></span></td><td><span class="icon-swatch" id="legend-heli-menu" style="width:22px;height:22px;display:inline-block"></span></td></tr>
-          <tr><td data-i18n="drone">Drone</td><td><span style="display:inline-block;width:20px;height:20px;background:var(--drone);border-radius:3px"></span></td><td><span class="icon-swatch" id="legend-drone-menu" style="width:24px;height:24px;display:inline-block"></span></td></tr>
+          <tr><td data-i18n="military">Military</td>
+          <td><span style="display:inline-block;width:20px;height:20px;background:var(--mil);border-radius:3px"></span></td>
+          <td><span class="icon-swatch" id="legend-fighter-menu" style="width:24px;height:24px;display:inline-block"></span>
+          </td>
+          </tr>
+          <tr><td data-i18n="helicopter">Helicopter</td>
+          <td>
+          <span style="display:inline-block;width:20px;height:20px;background:#fff;border-radius:3px"></span>
+          </td>
+          <td><span class="icon-swatch" id="legend-heli-menu" style="width:22px;height:22px;display:inline-block"></span></td></tr>
+          <tr><td data-i18n="drone">Drone</td>
+          <td><span style="display:inline-block;width:20px;height:20px;background:var(--drone);border-radius:3px"></span></td>
+          <td><span class="icon-swatch" id="legend-drone-menu" style="width:24px;height:24px;display:inline-block"></span></td></tr>
           <tr><td data-i18n="altitudeSpectrum">Altitude Spectrum</td><td colspan="2">
             <div class="spectrum-bar"></div>
             <div class="spectrum-labels"><span>0m</span><span>700m</span><span>1.4k</span><span>2.1k</span><span>2.8k</span><span>3.5k</span><span>4.2k</span><span>4.9k</span><span style="color:var(--c8)">&gt;49km</span><span style="color:var(--c9)">&gt;49km</span></div>
@@ -241,7 +273,11 @@ table{color:var(--text);font-size:.82rem}
       <div class="section-title" data-i18n="countryGroup">Country Flight Groups</div>
       <div class="table-responsive" style="max-height:240px;overflow:auto">
         <table class="table table-sm" id="fGBCT">
-          <thead><tr><th data-i18n="country">Country</th><th data-i18n="group">Group</th><th data-i18n="count">Count</th><th data-i18n="action">Action</th></tr></thead>
+          <thead><tr><th data-i18n="country">Country</th>
+          <th data-i18n="group">Group</th>
+          <th data-i18n="count">Count</th>
+          <th data-i18n="action">Action</th>
+          </tr></thead>
           <tbody></tbody>
         </table>
       </div>
@@ -394,8 +430,11 @@ table{color:var(--text);font-size:.82rem}
   const ASVG = `data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path stroke="black" stroke-width="0.6" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>')}`;
   const FSVG = `data:image/svg+xml;utf8,${encodeURIComponent('<svg width="24" height="24" viewBox="4 0 20 24" xmlns="http://www.w3.org/2000/svg"><path fill="red" stroke="black" stroke-width="0.7" d="M14.25.75q.35 0 1.1 3.35l.35 4.1.75 2.6v.75l4.1 3.4v-.8q0-.3.05-.5t.15-.25.15.25.05.5v3.7h-.35v-.75h-4.85v1.85l2.6 2.25v1.1l-.35.35h-2.25v-.35h-.35v-1.5h-.1l-.25 2.25h-1.5l-.25-2.25h-.1v1.5h-.35v.35H10.6l-.35-.35v-1.1l2.6-2.25V17.1H8v.75h-.35v-3.7q0-.3.05-.5t.15-.25.15.25.05.5v.8l4.1-3.4v-.75l.75-2.6.35-4.1q.7-3.05 1.05-3.35z"/></svg>')}`;
 
-  // ---------- Constants ----------
-  const TILE_URLS = ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}","https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png"];
+// ---------- Constants ----------
+  const TILE_URLS = ['https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}']
+// --- openstreet map can be add 
+//,"https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png"];
+
   const COLORS = {military:'#ff2a2a',passenger:'#9b59ff',commercial:'#3aa0ff',private:'#ff7ad9'};
   const SPECTRUM = ['#666666','#FFA500','#FFFF00','#00FF00','#0000FF','#4B0082','#800080','#FF00FF'];
   const HIGHALT_COLORS = ['#FF69B4','#00FFFF']; // pink & cyan
@@ -429,6 +468,8 @@ table{color:var(--text);font-size:.82rem}
   const toKmH=k=>(k==null||isNaN(k))?null:(k=Number(k))<=0?0:k<=250?Math.round(3.6*k):Math.round(1.852*k);
   const feetToMeters=f=>Math.round(0.3048*Number(f));
   const mToF=m=>Math.round(Number(m)/0.3048);
+  
+  
   const lerp=(a,b,t)=>a+(b-a)*t;
   const lerpA=(a,b,t)=>a==null?(b??0):b==null?(a??0):(a+((b-a+540)%360-180)*t+360)%360;
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -500,7 +541,7 @@ table{color:var(--text);font-size:.82rem}
   const map=new ol.Map({
     target:'map',
     layers:[baseLayer,brightLayer,trackLayer,markerLayer,sFL],
-    view:new ol.View({center:ol.proj.fromLonLat([54,35]),zoom:5,minZoom:1,maxZoom:18})
+    view:new ol.View({center:ol.proj.fromLonLat([54,35]),zoom:3,minZoom:1,maxZoom:18})
   });
 
   const popupEl=$('popup'), popupCloser=$('popup-closer'), popupContent=$('popup-content');
@@ -519,8 +560,10 @@ table{color:var(--text);font-size:.82rem}
   }
 
   // ---------- Group letters ----------
-  function mGL(n){const t=Math.ceil(n/36000),a='ABCDEFGHIJKLMNOPQRSTUVWXYZ',r=[];for(let i=0;i<t;i++){if(i<26)r.push(a[i]);else{const f=Math.floor((i-26)/26),s=(i-26)%26;r.push(a[f]+a[s]);}}return r;}
-  function sGO(){const arr=mGL(Math.max(36000,sortedHexes.length));groupSelect.innerHTML='';arr.forEach((g,i)=>{const o=document.createElement('option');o.value=g;o.textContent=`${g} (${36000*i+1}–${36000*(i+1)})`;groupSelect.appendChild(o);});groupSelect.value=currentGroup;}
+  
+  function mGL(n){const t=Math.ceil(n/26000),a='ABCDEFGHIJKLMNOPQRSTUVWXYZ',r=[];for(let i=0;i<t;i++){if(i<26)r.push(a[i]);else{const f=Math.floor((i-26)/26),s=(i-26)%26;r.push(a[f]+a[s]);}}return r;}
+  
+  function sGO(){const arr=mGL(Math.max(26000,sortedHexes.length));groupSelect.innerHTML='';arr.forEach((g,i)=>{const o=document.createElement('option');o.value=g;o.textContent=`${g} (${26000*i+1}–${26000*(i+1)})`;groupSelect.appendChild(o);});groupSelect.value=currentGroup;}
 
   // ---------- Bounds & fetch ----------
   function bFV(){
@@ -583,7 +626,7 @@ table{color:var(--text);font-size:.82rem}
     if(!tracksByHex.has(f.hex)) tracksByHex.set(f.hex,[]);
     const t=tracksByHex.get(f.hex);
     t.push({lon:f.lon,lat:f.lat,alt_m:f.alt_m||0,ts:f.ts});
-    if(t.length>500) t.shift();
+    if(t.length>26000) t.shift();
   }
 
   // ---------- Filter check ----------
@@ -937,10 +980,12 @@ table{color:var(--text);font-size:.82rem}
   }
   $('langToggle').addEventListener('click',()=>{applyLang(currentLang==='en'?'fa':'en');});
 
-  // ---------- Init ----------
-  sGO();uDLI();refresh();startAutoUpdate();
+// ---------- Init ----------
+// sGO();uDLI();
+//  refresh();
+  startAutoUpdate();
   $('map').classList.add('quantum-active');
-  console.log('%c T∆R — Targeted Aerial Recognition ','background:#000;color:#00f3ff;font-size:18px;border:1px solid #00f3ff');
+  console.log('%c T∆R — The Airlines Reconstruction','background:#000;color:#00f3ff;font-size:18px;border:1px solid #00f3ff');
 }();
 </script>
 </body>
