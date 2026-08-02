@@ -62,7 +62,7 @@ Unlike conventional systems, TAR evaluates the packet timing as a signal
 source.The Signal-to-noise ratio is defined as:
 
 $$
-SNR_{blob} = \frac{\Sigma B}{\sigma_{jitter}^2}
+SNR_{blob} = \frac{\Sigma |Bᵢ|^2}{\sigma_{jitter}^2}
 $$ 
 
 where 
