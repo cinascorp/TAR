@@ -122,9 +122,14 @@ against controlled RF environments and integration with multi-node
 correlation.
 
 ## github.com/cinascorp/TAR
+#####
+## How to use : 
+just open index.html with any modern browser like Google Chrome, Mozilla Firefox ,Safari , or etc ...
+or download and setup apk file on Android OS .
+best performance and feature are available while use window or linux internet browsers inside Developer Option (F12) - for understanding blob behavior you need to use specially open layer v.10.2.1 instead of olv10.10 (current)
+## Persian/Farsi
 
-
-# TAR
+# تار
 ## معماری بومی مرورگر برای بازسازی پیش بینانه فضای هوایی و تجسم پرواز در زمان واقعی
 
 ### تار  یک چارچوب مکان یابی منسجم غیرفعال (Passive Coherent Location - PCL) در مرورگرهای مدرن که از جریان های تله متری **HTTP/3 (QUIC)** برای تشخیص و تجسم هوایی در زمان واقعی استفاده می کند.
