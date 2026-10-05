@@ -1,5 +1,5 @@
 # TAR: The Airline Reconstruction
-# live demo : www.cinascorp.github.io/TAR
+# live demo : cinascorp.github.io/TAR/
 ## Introduction
 Traditional air traffic visualization platforms are based on delayed
 telemetry pipelines and server side rendering. TAR proposes a
