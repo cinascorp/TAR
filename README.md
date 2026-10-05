@@ -1,4 +1,5 @@
 # TAR: The Airline Reconstruction
+# live demo : www.cinascorp.github.io/TAR
 ## Introduction
 Traditional air traffic visualization platforms are based on delayed
 telemetry pipelines and server side rendering. TAR proposes a
@@ -126,7 +127,7 @@ correlation.
 ## How to use : 
 just open index.html with any modern browser like Google Chrome, Mozilla Firefox ,Safari , or etc ...
 or download and setup apk file on Android OS .
-best performance and feature are available while use window or linux internet browsers inside Developer Option (F12) - for understanding blob behavior you need to use specially open layer v.10.2.1 instead of olv10.10 (current)
+best performance and feature are available while use window or linux internet browsers inside Developer Option (F12) - for understanding blob behavior you need to use specially open layer v.10.2.1 instead of olv10.11.0 (current)
 ## Persian/Farsi
 
 # تار
