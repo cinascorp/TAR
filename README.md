@@ -1,4 +1,4 @@
-# TAR — The Airline Reconstruction
+# TAR — The Airwayline Reconstruction
 
 A client-side flight reconstruction and visualization prototype that blends geospatial tracking, temporal smoothing, and signal-based anomaly ideas into a browser-first experience.
 
