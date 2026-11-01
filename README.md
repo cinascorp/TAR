@@ -1,5 +1,5 @@
 # T∆R — The Airlines Reconstruction
-# cinascorp.github.io/TAR
+# https://cinascorp.github.io/TAR
 ## A real-time, open-source, global air-traffic surveillance and anomaly-detection system for conflict zones, humanitarian corridors, and the open internet.
 
 > A single-file, browser-side, zero-backend-required application that tracks every aircraft on Earth — civilian, military, private, helicopter, drone/UAV, glider, and high-altitude (>30 km) vehicles — and surfaces aerial anomalies that traditional consumer trackers do not show. Built over two years of engineering to be lightweight enough to run on low-end hardware and constrained networks, and to help save human lives in crisis.
