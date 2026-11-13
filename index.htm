@@ -1,5 +1,33 @@
+<!--
+╔════════════════════════════════════════════════════════════════╗
+║  T∆R — The Airway Reconstruction                                          ║
+║  Browser-Native Passive Airspace Reconstruction & Quantum Anomaly Detect  ║
+║                                                                           ║
+║  Author:  Cina Naqshbandi  (cinascorp@gmail.com)                          ║
+║  Repo:    https://github.com/cinascorp/TAR                                ║
+║  Live:    https://cinascorp.github.io/TAR                                 ║
+║                                                                           ║
+║  Single-file HTML application. No build step, no backend required for     ║
+║  standalone deployment. Optional same-origin /api/feed aggregator for     ║
+║  dev environments where public CORS proxies are blocked.                  ║
+║                                                                           ║
+║  ARCHITECTURE OVERVIEW                                                    ║
+║                                                                           ║
+║   • Map rendering:    OpenLayers 10 (vector + tile layers)                ║
+║   • UI framework:     Bootstrap 5 offcanvas panels + floating buttons     ║
+║   • Data sources:     FR24 + OpenSky + adsb.lol (multi-feed aggregator)   ║
+║   • Motion model:     Constant-velocity dead reckoning (pos += vel*dt)    ║
+║   • Geodesics:        WGS84 ellipsoid + EGM2008 geoid undulation          ║
+║   • Signal analysis:  TAR quantum module (SNR_blob, ghost, shadow)        ║
+║   • i18n :            English ⇄ فارسی (RTL)                               ║
+║                                                                           ║
+║  PHASE 1 (current): 2D OpenLayers + SVG aircraft icons                    ║
+║  PHASE 2 (future):  3D map + GLTF aircraft models (G3DMAP)                ║
+║                                                                           ║
+║  This file is the canonical deployment artifact.                          ║
+╚════════════════════════════════════════════════════════════════╝
+-->
 <html lang="fa" dir="ltr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -17,6 +45,12 @@
     <link href="https://cdn.jsdelivr.net/npm/ol@v10.11.0/ol.css"
       rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/ol@v10.11.0/dist/ol.js"></script>
+<!--
+═══════════════════════════════════════════════════════════════════════
+CSS  —  Theme variables, layout, panels, map overlays, boot splash.
+Light theme = raw OSM tiles (default). Dark theme = CSS filter on OSM:
+No API key needed for either theme.
+══════════════════════════════════════════════════════════════════════ -->
     <style>
       :root {
         --bg: #000;
@@ -700,7 +734,12 @@
 
     </style>
   </head>
-
+<!--
+══════════════════════════════════════════════════════════════════════
+  HTML BODY  —  Boot splash, floating buttons, map, popup, settings panel
+  (☰ right offcanvas), help panel (? left offcanvas), LADD badge, entropy
+  detection box, attribution logo.
+════════════════════════════════════════════════════════════════════-->
 <body>
     <div id="boot">
       <div class="boot-radar">
@@ -709,23 +748,31 @@
       <h1 class="tar-logo" id="bootLogo">T∆R</h1>
       <div class="boot-sub" id="bootSub"> a new Paradigm</div>
       <div class="boot-status" id="bootStatus">INITIALIZING… </div>
-    </div><button class="float-btn" id="menuToggle" data-bs-target="#rightMenu"
-      data-bs-toggle="offcanvas" title="Settings">☰ </button><button
-      class="float-btn" id="mLT" title="Toggle Map Layer">L</button><button
+    </div>
+    <button class="float-btn" id="menuToggle" data-bs-target="#rightMenu"
+      data-bs-toggle="offcanvas" title="Settings">☰ </button>
+    <button
+      class="float-btn" id="mLT" title="Toggle Map Layer">L</button>
+    <button
       class="float-btn" id="tarToggle" data-bs-target="#tarPanel"
-      data-bs-toggle="offcanvas" title="Help">? </button><button
+      data-bs-toggle="offcanvas" title="Help">? </button>
+    <button
       class="float-btn" id="langToggle" title="Switch Language">EN </button>
-    <div id="map"></div>
+     <div id="map">
+    </div>
     <div id="popup" style="display:none">
-      <div><span id="popup-closer">✕</span></div>
+      <div><span id="popup-closer">✕</span>
+    </div>
       <div id="popup-content"></div>
     </div>
-    <div id="attribution" class="tar-logo">T∆R</div>
     <div id="laddBadge">⚡ LADD MODE ACTIVE</div>
     <div class="offcanvas offcanvas-end" id="rightMenu" tabindex="-1">
       <div class="offcanvas-header">
+    <div id="attribution" class="tar-logo">T∆R</div>    
+<!-------------------------- Group & controls --------------------------->
         <h5 class="offcanvas-title" data-i18n="settings">Settings
-          &amp;Information </h5><button class="btn-close btn-close-white"
+          &amp;Information </h5>
+          <button class="btn-close btn-close-white"
           data-bs-dismiss="offcanvas"></button>
       </div>
       <div class="offcanvas-body">
@@ -1003,10 +1050,19 @@
                 <td colspan="2">
                   <div class="spectrum-bar"></div>
                   <div class="spectrum-labels">
-                    <span>0m</span><span>1500m</span><span>3k</span><span>4.5k</span><span>6k</span><span>7.5k</span><span>9k</span><span>10.5k</span><span
+                    <span>0m</span>
+                      <span>1500m</span>
+                      <span>3k</span>
+                      <span>4.5k</span>
+                      <span>6k</span>
+                      <span>7.5k</span>
+                      <span>9k</span>
+                      <span>10.5k</span>
+                      <span
                       style="color:var(--c8)">&gt;12km</span><span
                       style="color:var(--c9)">&gt;13.5km</span><span
-                      style="color:var(--c10)">&gt;15km</span></div>
+                      style="color:var(--c10)">&gt;15km</span>
+                  </div>
                   <div class="small text-info mt-1" data-i18n="spectrumInfo">
                     Each color step=1500 meters altitude </div>
                   <div class="small mt-1" style="color:var(--c8)"
@@ -1017,6 +1073,7 @@
             </tbody>
           </table>
         </div>
+<!------------------------------ Country groups ----------------------------->
         <div class="mb-3">
           <div class="section-title" data-i18n="countryGroup">Country Flight
             Groups </div>
@@ -1030,10 +1087,12 @@
                   <th data-i18n="action">Action</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+             </tbody>
             </table>
           </div>
         </div>
+<!------------------------------  Flight details ---------------------------->   
         <div class="mb-3" id="sGD" style="display:none">
           <div class="section-title" data-i18n="flightDetails">Flight Details
           </div>
@@ -1053,8 +1112,8 @@
           </div>
         </div>
         <div class="mb-3">
-          <div class="section-title" data-i18n="entropyDetection">Entropy
-            Detection </div>
+          <div class="section-title" data-i18n="entropyDetection">
+              Entropy Detection </div>
           <div class="entropy-grid">
             <div class="entropy-cell">
               <div class="lbl" data-i18n="entropy">Entropy</div>
@@ -1098,15 +1157,22 @@
     </div>
     <div class="offcanvas offcanvas-start" id="tarPanel" tabindex="-1">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" data-i18n="advHelpTitle"> T∆R — Advanced
-          Help </h5><button class="btn-close btn-close-white"
+        <h5 class="offcanvas-title" data-i18n="advHelpTitle">
+            T∆R — AdvancedHelp </h5>
+          <button class="btn-close btn-close-white"
           data-bs-dismiss="offcanvas"></button>
       </div>
+<!------------------------------------------------------------------------
+          this feature is a secret to activate and show LADD flights : 
+          just tap 7 time on the delta (∆) middle of T∆R logo 
+          in advanced help to see limited airplane display data 
+------------------------------------------------------------------------->
       <div class="offcanvas-body">
         <div class="tar-hero">
           <h1 id="tarSecretLogo">T∆R</h1>
-          <div class="subtitle" data-i18n="heroSubtitle">The Airlines
-            Reconstruction</div>
+          <div class="subtitle" data-i18n="heroSubtitle">
+              The Airlines Reconstruction
+          </div>
         </div>
         <div class="tar-section">
           <h3 data-i18n="overview">Overview</h3>
